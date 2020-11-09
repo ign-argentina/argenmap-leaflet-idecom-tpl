@@ -579,37 +579,54 @@ function loadWmsTpl (objLayer) {
     
     //Parse FeatureInfo to display into popup (if info is application/json)
     function parseFeatureInfoJSON(info, idTxt, title) {
-		info = JSON.parse(info);
-        if (info.features.length > 0) { // check if info has any content, if so shows popup
-            
-            var infoAux = '<div class="featureInfo" id="featureInfoPopup' + idTxt + '">';
-            infoAux += '<div class="featureGroup">';
-            infoAux += '<div style="padding:1em" class="individualFeature">';
-            infoAux += '<h4 style="border-top:1px solid gray;text-decoration:underline;margin:1em 0">' + title + '</h4>';
-            infoAux += '<ul>';
-            
-            for (i in info.features) {
-                Object.keys(info.features[i].properties).forEach(function(k){
-                    if (k != 'bbox' && !templateFeatureInfoFieldException.includes(k)) { //Do not show bbox property
-                        infoAux += '<li>';
-                        infoAux += '<b>' + ucwords(k.replace(/_/g, ' ')) + ':</b>';
-                        if (info.features[i].properties[k] != null) {
-                            infoAux += ' ' + info.features[i].properties[k];
-                        }
-                        infoAux += '<li>';
-                    }
-                });
-            }
-            
-            infoAux += '</ul>';
-            //infoAux += '<img style="height:40px" src="http://ventas.ign.gob.ar/image/data/general/logoAzul.png"/>';
-            infoAux += '</div></div></div>';
-            
-            return infoAux;
-        }
-        
-        return '';
-    }
+			info = JSON.parse(info);
+		
+					if (info.features.length > 0) { // check if info has any content, if so shows popup
+							var infoAux = '<div class="featureInfo" style="overflow: auto; max-width: 400px; max-height:400px;" id="featureInfoPopup'  + idTxt + '>'
+							infoAux += '<div class="featureGroup" >'
+							infoAux += '<div  class="individualFeature" >'
+							infoAux += '<h4 style="border-top:1px solid gray;text-decoration:underline;margin:1em 0">' + title + '</h4>'
+							
+							
+							//encabezado de tabla
+							infoAux+='<table id="classTable"  class="table table-bordered">'
+  						infoAux+='<thead class="table">'
+							infoAux+='<tr>'
+							var ver = Object.keys(info.features[0].properties);
+							for (i in ver){
+								if (ver[i]!='bbox'){
+									infoAux+='<th>'
+									infoAux+=ver[i];
+									infoAux+='</th>'
+								}
+							}
+							infoAux+='</tr>'
+							infoAux+='</thead>'
+							
+
+							//datos de tabla
+							infoAux+='<tbody>'
+
+							for (i in info.features) {
+								infoAux += '<tr>';
+								Object.keys(info.features[i].properties).forEach(function(k){
+										if (k != 'bbox' && !templateFeatureInfoFieldException.includes(k)) { //Do not show bbox property
+												if (info.features[i].properties[k] != null) {
+													infoAux+='<td>'+info.features[i].properties[k]+'</td>'
+												}
+										}
+								});
+								infoAux += '</tr>';
+						}
+						infoAux+='</tbody>'
+							
+						//cierre de tabla
+							infoAux+='</table>'
+							infoAux += '</div></div></div>';
+							return infoAux;
+					}
+					return '';
+			}
     
     //function createWmsLayer(wmsUrl, layer) {
     function createWmsLayer(objLayer) {
