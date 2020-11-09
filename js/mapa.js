@@ -576,22 +576,25 @@ function loadWmsTpl (objLayer) {
         
         return '';
     }
-    
-    //Parse FeatureInfo to display into popup (if info is application/json)
-    function parseFeatureInfoJSON(info, idTxt, title) {
-			info = JSON.parse(info);
 		
-					if (info.features.length > 0) { // check if info has any content, if so shows popup
-							var infoAux = '<div class="featureInfo" style="overflow: auto; max-width: 400px; max-height:400px;" id="featureInfoPopup'  + idTxt + '>'
-							infoAux += '<div class="featureGroup" >'
-							infoAux += '<div  class="individualFeature" >'
-							infoAux += '<h4 style="border-top:1px solid gray;text-decoration:underline;margin:1em 0">' + title + '</h4>'
+	
+			//Parse FeatureInfo to display into popup (if info is application/json)
+			function parseFeatureInfoJSON(info, idTxt, title) {
+				info = JSON.parse(info);
+						if (info.features.length > 0) { // check if info has any content, if so shows popup
+								
+							var infoAux = '<div class="featureInfo" id="featureInfoPopup' + idTxt + '">';
+							infoAux += '<div class="featureGroup">';
+							infoAux += '<div style="padding:1em" class="individualFeature" >';
+							infoAux += '<h4 style="border-top:1px solid gray;text-decoration:underline;margin:1em 0">' + title + '</h4>';
+							infoAux += '<ul style="overflow: auto; max-height=200px !important">';
 							
-							
-							//encabezado de tabla
-							infoAux+='<table id="classTable"  class="table table-bordered">'
+									//encabezado de tabla
+							infoAux+='<div  id="content" style="max-height:400px !important">'
+							infoAux+='<table id="classTable"   class="table table-bordered" >'
   						infoAux+='<thead class="table">'
 							infoAux+='<tr>'
+
 							var ver = Object.keys(info.features[0].properties);
 							for (i in ver){
 								if (ver[i]!='bbox'){
@@ -602,7 +605,6 @@ function loadWmsTpl (objLayer) {
 							}
 							infoAux+='</tr>'
 							infoAux+='</thead>'
-							
 
 							//datos de tabla
 							infoAux+='<tbody>'
@@ -621,12 +623,16 @@ function loadWmsTpl (objLayer) {
 						infoAux+='</tbody>'
 							
 						//cierre de tabla
-							infoAux+='</table>'
-							infoAux += '</div></div></div>';
+							infoAux+='</table>'	
+							infoAux += '</ul>';
+							infoAux += '</div></div></div></div>';
+								
 							return infoAux;
-					}
-					return '';
-			}
+						}	
+						return '';
+				}
+
+	
     
     //function createWmsLayer(wmsUrl, layer) {
     function createWmsLayer(objLayer) {
