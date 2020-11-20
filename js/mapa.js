@@ -735,7 +735,18 @@ function createModal(){
 	
 	//genero tabla
 	let d=document.createElement("div")
-	d.className="container"
+	d.className="modal content"
+	d.role="dialog"
+	d.id="mm"
+	d.style.backgroundColor="white"
+	d.style.left="300px"
+	d.style.top="100px"
+	d.style.Width="800px"
+	d.style.maxHeight="500px"
+	d.style.overflow="auto"
+	
+
+	d.innerHTML="<h1>tabla en un div</h1>"
 	d.appendChild(createTable());
 
 	//provisorio se muestra en popup de leaflet 
@@ -743,10 +754,9 @@ function createModal(){
 	q[0].style.display = "none";
 	let x = document.getElementsByClassName("individualFeature")
 	x[0].style.display = "none"
-	let z = document.getElementsByClassName("leaflet-popup-content")
-	z[0].style.width="800px"
-	z[0].style.height="500px"
-  z[0].appendChild(d)
+	document.body.appendChild(d)
+	$('#mm').modal('show');
+	document.getElementById('sidebar-container').style.zIndex =999;
 
 	//trabajando en: copy to clipboard y bajar datos a archivo txt/json
 	return;
@@ -769,6 +779,7 @@ function createTable(){
 	let col =jsonToHeadTable();
 	let table = document.createElement("table");
 	table.className="table table-striped table-bordered";
+	table.id="datatablejson"
 
 	let  tr = table.insertRow(-1);                   
 	for (let i = 0; i < col.length; i++) {
@@ -786,6 +797,7 @@ function createTable(){
 	}
 	return table;
 }
+
 
 
 //Paginate FeatureInfo into popup
