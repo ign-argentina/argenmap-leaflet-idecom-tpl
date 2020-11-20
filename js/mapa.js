@@ -5,6 +5,8 @@ var atrib_ign = "<a href='http://www.ign.gob.ar/AreaServicios/Argenmap/Introducc
     layerData;
 var argenmap = "";
 var mapa = "";
+var datatable={};
+
 
 //Change logotype
 $('#top-left-logo-link').attr("href","https://www.argentina.gob.ar/jefatura/innovacion-publica/ssetic");
@@ -577,20 +579,27 @@ function loadWmsTpl (objLayer) {
         return '';
     }
 		
-	
+
+			
+			
+			
 			//Parse FeatureInfo to display into popup (if info is application/json)
 			function parseFeatureInfoJSON(info, idTxt, title) {
+
 				info = JSON.parse(info);
+				
+				datatable = info.features;
+				
+				
 						if (info.features.length > 0) { // check if info has any content, if so shows popup
 								
 							var infoAux = '<div class="featureInfo" id="featureInfoPopup' + idTxt + '">';
-							infoAux += '<div class="featureGroup">';
 							infoAux += '<div style="padding:1em" class="individualFeature" >';
-							infoAux += '<h4 style="border-top:1px solid gray;text-decoration:underline;margin:1em 0">' + title + '</h4>';
-							infoAux += '<ul style="overflow: auto; max-height=200px !important">';
+							infoAux += '<h4 style="border-top:1px solid gray;text-decoration:underline;margin:1em 0">' + title + '</h4><h5>Cantidad de Registros: '+info.features.length+'</h5>';
+							infoAux += '<ul style="overflow: auto">';
 							
 									//encabezado de tabla
-							infoAux+='<div  id="content" style="max-height:400px !important">'
+							infoAux+='<div  id="content" style="max-height:400px !important;max-width:50% !important;">'
 							infoAux+='<table id="classTable"   class="table table-bordered" >'
   						infoAux+='<thead class="table">'
 							infoAux+='<tr>'
@@ -629,11 +638,13 @@ function loadWmsTpl (objLayer) {
 								
 							return infoAux;
 						}	
+						
 						return '';
+						
 				}
-
-	
-    
+			
+				
+		
     //function createWmsLayer(wmsUrl, layer) {
     function createWmsLayer(objLayer) {
         //Extends WMS.Source to customize popup behavior
@@ -654,12 +665,14 @@ function loadWmsTpl (objLayer) {
                 if (popupInfo.length > 0) {
                     popupInfoToPaginate = popupInfo.slice();
                     latlngTmp = latlng;
-                    this._map.openPopup(paginateFeatureInfo(popupInfo, 0, false, true), latlng); //Show all info
+										this._map.openPopup(paginateFeatureInfo(popupInfo, 0, false, true), latlng); //Show all info
                     popupInfoPage = 0;
                 }
                 return;
             }
-        });
+				});
+			
+				
         //var wmsSource = new L.WMS.source(wmsUrl + "/wms?", {
         var wmsSource = new MySource(objLayer.capa.getHostWMS(), {
             transparent: true,
@@ -718,25 +731,96 @@ function loadMapaBaseBingTpl (bingKey, layer, attribution) {
     }
 }
 
+function createModal(){
+	
+	//genero tabla
+	let d=document.createElement("div")
+	d.className="container"
+	d.appendChild(createTable());
+
+	//provisorio se muestra en popup de leaflet 
+	let q = document.getElementsByClassName("btn btn-info btn-lg");
+	q[0].style.display = "none";
+	let x = document.getElementsByClassName("individualFeature")
+	x[0].style.display = "none"
+	let z = document.getElementsByClassName("leaflet-popup-content")
+	z[0].style.width="800px"
+	z[0].style.height="500px"
+  z[0].appendChild(d)
+
+	//trabajando en: copy to clipboard y bajar datos a archivo txt/json
+	return;
+}
+
+function jsonToHeadTable(){
+	let aux = datatable[0].properties
+	let col = [];
+			for (let key in aux) {
+					if (col.indexOf(key) === -1) {
+							if(key!=="bbox"){
+								col.push(key);
+							}	
+					}
+	}
+	return col;
+}
+
+function createTable(){
+	let col =jsonToHeadTable();
+	let table = document.createElement("table");
+	table.className="table table-striped table-bordered";
+
+	let  tr = table.insertRow(-1);                   
+	for (let i = 0; i < col.length; i++) {
+		  let th = document.createElement("th");      
+			th.innerHTML = col[i];
+			tr.appendChild(th);
+	}
+
+		for (let i = 0; i < datatable.length; i++) {
+			tr = table.insertRow(-1);
+			for (let j = 0; j < col.length; j++) {
+					let tabCell = tr.insertCell(-1);
+					tabCell.innerHTML = datatable[i].properties[col[j]];
+			}
+	}
+	return table;
+}
+
+
 //Paginate FeatureInfo into popup
 function paginateFeatureInfo(infoArray, actualPage, hasPrev, hasNext) {
-    var infoStr = infoArray.join('');
+	
+	//boton que ejecute la funcion
+	var infoStr='<button type="button" id="botontable" onClick="createModal()"class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"  data-backdrop="false">Open Table</button>';
+	
+	
+  infoStr += infoArray.join('');
+		
+		
     if (infoArray.length > 1) {
+
         for (var i = 0; i < infoArray.length; i++) {
             if (i == actualPage) {
-                var sAux = '';
+								var sAux = '';
+								
                 if (hasPrev == true) {
                     sAux += '<a href="javascript:;" onClick="changePopupPage(\'prev\')" id="popupPageSeekerPrev"><i class="fas fa-arrow-left"></i> capa ant.</a>';
                 }
                 if (hasNext == true) {
                     sAux += '<a href="javascript:;" onClick="changePopupPage(\'next\')" id="popupPageSeekerNext">capa sig.<i class="fas fa-arrow-right"></i></a>';
                 }
-                infoStr = infoStr.replace('<div class="featureInfo" id="featureInfoPopup' + i + '">', '<div id="popupPageSeeker">' + sAux + '</div><div class="featureInfo" id="featureInfoPopup' + i + '">');
+								infoStr+='<div class="modal fade" id="largeShoes" tabindex="-1" role="dialog" aria-labelledby="modalLabelLarge" aria-hidden="true"><div class="modal-dialog modal-lg" style="width: 100%"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="modalLabelLarge">Modal Title</h4></div><div class="modal-body">'
+	
+								infoStr = infoStr.replace('<div class="featureInfo" id="featureInfoPopup' + i + '">', '<div id="popupPageSeeker">' + sAux + '</div><div class="featureInfo" id="featureInfoPopup' + i + '">');
             } else {
-                infoStr = infoStr.replace('<div class="featureInfo" id="featureInfoPopup' + i + '">', '<div class="featureInfo" style="display:none" id="featureInfoPopup' + i + '">');
+							infoStr+='<div class="modal fade" id="largeShoes" tabindex="-1" role="dialog" aria-labelledby="modalLabelLarge" aria-hidden="true"><div class="modal-dialog modal-lg" style="width: 100%"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="modalLabelLarge">Modal Title</h4></div><div class="modal-body">'
+		
+							infoStr = infoStr.replace('<div class="featureInfo" id="featureInfoPopup' + i + '">', '<div class="featureInfo" style="display:none" id="featureInfoPopup' + i + '">');
             }
         }
-    }
+		}
+		infoStr+='</div></div></div></div>'
     return infoStr;
 }
     
