@@ -5,7 +5,8 @@ var atrib_ign = "<a href='http://www.ign.gob.ar/AreaServicios/Argenmap/Introducc
     layerData;
 var argenmap = "";
 var mapa = "";
-var datatable={};
+
+
 
 
 //Change logotype
@@ -558,6 +559,7 @@ function loadWmsTpl (objLayer) {
 
     //Parse FeatureInfo to display into popup (if info is text/html)
     function parseFeatureInfoHTML(info, idTxt) {
+			 
         infoAux = info.search("<ul>"); // search if info has a list
         if (infoAux > 0) { // check if info has any content, if so shows popup
             $(info).find('li').each(function( index ) {
@@ -579,32 +581,26 @@ function loadWmsTpl (objLayer) {
         return '';
     }
 		
-
-			
-			
-			
 			//Parse FeatureInfo to display into popup (if info is application/json)
 			function parseFeatureInfoJSON(info, idTxt, title) {
-
 				info = JSON.parse(info);
-				
-				datatable = info.features;
-				
-				
 						if (info.features.length > 0) { // check if info has any content, if so shows popup
-								
+							
 							var infoAux = '<div class="featureInfo" id="featureInfoPopup' + idTxt + '">';
 							infoAux += '<div style="padding:1em" class="individualFeature" >';
 							infoAux += '<h4 style="border-top:1px solid gray;text-decoration:underline;margin:1em 0">' + title + '</h4><h5>Cantidad de Registros: '+info.features.length+'</h5>';
+							
 							infoAux += '<ul style="overflow: auto">';
 							
 									//encabezado de tabla
 							infoAux+='<div  id="content" style="max-height:400px !important;max-width:50% !important;">'
-							infoAux+='<table id="classTable"   class="table table-bordered" >'
+							infoAux+='<table id="classTable" class="table table-striped table-bordered text-center" >'
+
   						infoAux+='<thead class="table">'
 							infoAux+='<tr>'
 
 							var ver = Object.keys(info.features[0].properties);
+							
 							for (i in ver){
 								if (ver[i]!='bbox'){
 									infoAux+='<th>'
@@ -617,10 +613,12 @@ function loadWmsTpl (objLayer) {
 
 							//datos de tabla
 							infoAux+='<tbody>'
-
+							
 							for (i in info.features) {
 								infoAux += '<tr>';
+								
 								Object.keys(info.features[i].properties).forEach(function(k){
+									
 										if (k != 'bbox' && !templateFeatureInfoFieldException.includes(k)) { //Do not show bbox property
 												if (info.features[i].properties[k] != null) {
 													infoAux+='<td>'+info.features[i].properties[k]+'</td>'
@@ -635,44 +633,177 @@ function loadWmsTpl (objLayer) {
 							infoAux+='</table>'	
 							infoAux += '</ul>';
 							infoAux += '</div></div></div></div>';
-								
 							return infoAux;
-						}	
-						
+						}
 						return '';
-						
 				}
-			
-				
-		
+	class Datatable {
+		constructor (data,latlng) {
+		this.latlng = latlng;
+		this.data = data;
+		}
+
+		getDataForTabulator(){
+			let data = []
+				for (let i =0; i<this.data.features.length;i++ ){
+				data.push(this.data.features[i].properties)
+				}
+			return data
+			}
+	}
+
+	var arreglosavejson = [];
     //function createWmsLayer(wmsUrl, layer) {
     function createWmsLayer(objLayer) {
-        //Extends WMS.Source to customize popup behavior
+				//Extends WMS.Source to customize popup behavior
         var MySource = L.WMS.Source.extend({
             'showFeatureInfo': function(latlng, info) {
+							/*
                 if (!this._map) {
                     return;
                 }
                 if (this.options.INFO_FORMAT == 'text/html') {
-                    var infoParsed = parseFeatureInfoHTML(info, popupInfo.length);
+										var infoParsed = parseFeatureInfoHTML(info, popupInfo.length);
                 } else {
-                    var infoParsed = parseFeatureInfoJSON(info, popupInfo.length, this.options.title);
+										var infoParsed = parseFeatureInfoJSON(info, popupInfo.length, this.options.title);
                 }
                 if (infoParsed != '') { // check if info has any content, if so shows popup
                     var popupContent = $('.leaflet-popup').html();
                     popupInfo.push(infoParsed); //First info for popup
                 }
                 if (popupInfo.length > 0) {
-                    popupInfoToPaginate = popupInfo.slice();
+										popupInfoToPaginate = popupInfo.slice();
                     latlngTmp = latlng;
 										this._map.openPopup(paginateFeatureInfo(popupInfo, 0, false, true), latlng); //Show all info
-                    popupInfoPage = 0;
-                }
-                return;
+										popupInfoPage = 0;
+								}
+								*/
+								//llamada a tabulator
+
+									var tableD = new Datatable (JSON.parse(info),latlng)
+									createTabulator(tableD)
+									arreglosavejson[arreglosavejson.length]=tableD
+								return;
             }
 				});
-			
-				
+
+				function createTabulator(tableD){
+						if (tableD.data.features.length != 0){
+								var datos = tableD.getDataForTabulator();
+								//primer div//
+								let div = document.createElement("div")
+								div.id="contenedorPrincipal"
+								div.style.zIndex="3000"
+								div.style.border='3px'
+								div.style.padding= '5px'
+								div.style.backgroundColor="white"
+								div.style.flexFlow= 'column'
+								div.style.width="300px"
+								div.style.left="275px"
+								div.style.top="100px"
+								div.style.position="relative"
+								div.style.borderRadius = "8px"
+								
+							  var btn = document.createElement("BUTTON");
+								btn.innerHTML = "FullSize";
+								btn.onclick = function(){
+								div2.style.display = "block"
+								div.style.width="75%"
+								div.style.height="450px"
+								document.getElementById("btnmin").disabled = false; 
+								};
+
+								var btnmin= document.createElement("BUTTON");
+								btnmin.id="btnmin"
+								btnmin.innerHTML = "min";
+								btnmin.onclick = function(){
+										div2.style.display = "none";
+										div.style.height="35px"
+										div.style.width="270px"
+										document.getElementById("btnmin").disabled = true; 
+								};
+
+								var btnclose = document.createElement("BUTTON");
+								btnclose.innerHTML = "Close";
+								btnclose.onclick = function(){
+									document.body.removeChild(contenedorPrincipal)
+									arreglosavejson =[];
+								};
+
+								var btnsave= document.createElement("BUTTON");
+								btnsave.innerHTML = "Save Json";
+								btnsave.onclick = function(){
+									var json = JSON.stringify(arreglosavejson)
+									var file = new File([json], "data.json", {type: "text/plain;charset=utf-8"});
+									saveAs(file);
+								};
+
+								div.appendChild(btn);
+								div.appendChild(btnmin);
+								div.appendChild(btnclose);
+								div.appendChild(btnsave);
+
+								//segundo div//
+								let div2 = document.createElement("div")
+								div2.style.zIndex="3000"
+								div2.id='containerTables'
+								let iniciaul = document.createElement("ul")
+								iniciaul.className='nav nav-tabs'
+								iniciaul.id='indextabulator'
+
+								let primerli = document.createElement("li")
+								primerli.className="active"
+								primerli.innerHTML='<a data-toggle="tab" href="#example-table">Table 1</a>'
+								iniciaul.appendChild(primerli)
+								div2.appendChild(iniciaul);
+
+								let divtabs = document.createElement("div")
+								divtabs.className= "tab-content"
+								divtabs.id="tab-content"
+
+								//tercer div//
+								let div3 = document.createElement("div")
+								div3.className= "tab-pane fade in active"
+								div3.style.zIndex="3000"
+								div3.id='example-table'
+
+								divtabs.appendChild(div3);
+								div2.appendChild(divtabs);
+								div.appendChild(div2);
+
+								let i = ""
+
+								if (document.getElementById("contenedorPrincipal") !== null)
+								{ 
+									let ventanas = document.getElementsByClassName("tabulator-footer")
+									i = ventanas.length
+									div3.id="example-table"+i
+									//nuevo tab
+									div3.className="tab-pane fade"
+									document.getElementById("tab-content").appendChild(div3)
+									let linuevo = document.createElement("li")
+									linuevo.innerHTML='<a data-toggle="tab" href="#example-table'+i+'">Table'+(i+1)+'</a>'
+									document.getElementById("indextabulator").appendChild(linuevo)
+								}
+								else{
+									document.body.appendChild(div)
+								}
+								
+								var table = new Tabulator("#example-table"+i, {
+									data: datos, //assign data to table
+									autoColumns:true, //create columns from data field names
+									tooltips:true,            //show tool tips on cells
+									pagination:"local",       //paginate the data
+									paginationSize:10,         //allow 7 rows per page of data
+									movableColumns:true,      //allow column order to be changed
+									resizableRows:true,       //allow row order to be changed
+									responsiveLayout:"hide", // hide rows that no longer fit
+								 },
+								 );
+								 
+							}
+				}
+
         //var wmsSource = new L.WMS.source(wmsUrl + "/wms?", {
         var wmsSource = new MySource(objLayer.capa.getHostWMS(), {
             transparent: true,
@@ -731,85 +862,13 @@ function loadMapaBaseBingTpl (bingKey, layer, attribution) {
     }
 }
 
-function createModal(){
-	
-	//genero tabla
-	let d=document.createElement("div")
-	d.className="modal content"
-	d.role="dialog"
-	d.id="mm"
-	d.style.backgroundColor="white"
-	d.style.left="300px"
-	d.style.top="100px"
-	d.style.Width="800px"
-	d.style.maxHeight="500px"
-	d.style.overflow="auto"
-	
-
-	d.innerHTML="<h1>tabla en un div</h1>"
-	d.appendChild(createTable());
-
-	//provisorio se muestra en popup de leaflet 
-	let q = document.getElementsByClassName("btn btn-info btn-lg");
-	q[0].style.display = "none";
-	let x = document.getElementsByClassName("individualFeature")
-	x[0].style.display = "none"
-	document.body.appendChild(d)
-	$('#mm').modal('show');
-	document.getElementById('sidebar-container').style.zIndex =999;
-
-	//trabajando en: copy to clipboard y bajar datos a archivo txt/json
-	return;
-}
-
-function jsonToHeadTable(){
-	let aux = datatable[0].properties
-	let col = [];
-			for (let key in aux) {
-					if (col.indexOf(key) === -1) {
-							if(key!=="bbox"){
-								col.push(key);
-							}	
-					}
-	}
-	return col;
-}
-
-function createTable(){
-	let col =jsonToHeadTable();
-	let table = document.createElement("table");
-	table.className="table table-striped table-bordered";
-	table.id="datatablejson"
-
-	let  tr = table.insertRow(-1);                   
-	for (let i = 0; i < col.length; i++) {
-		  let th = document.createElement("th");      
-			th.innerHTML = col[i];
-			tr.appendChild(th);
-	}
-
-		for (let i = 0; i < datatable.length; i++) {
-			tr = table.insertRow(-1);
-			for (let j = 0; j < col.length; j++) {
-					let tabCell = tr.insertCell(-1);
-					tabCell.innerHTML = datatable[i].properties[col[j]];
-			}
-	}
-	return table;
-}
-
-
-
 //Paginate FeatureInfo into popup
 function paginateFeatureInfo(infoArray, actualPage, hasPrev, hasNext) {
-	
 	//boton que ejecute la funcion
-	var infoStr='<button type="button" id="botontable" onClick="createModal()"class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"  data-backdrop="false">Open Table</button>';
-	
+	var infoStr='<a href="javascript:;" onClick="fullSize()" id="botontable">Fullscreen</a>';
 	
   infoStr += infoArray.join('');
-		
-		
+				
     if (infoArray.length > 1) {
 
         for (var i = 0; i < infoArray.length; i++) {
@@ -821,13 +880,9 @@ function paginateFeatureInfo(infoArray, actualPage, hasPrev, hasNext) {
                 }
                 if (hasNext == true) {
                     sAux += '<a href="javascript:;" onClick="changePopupPage(\'next\')" id="popupPageSeekerNext">capa sig.<i class="fas fa-arrow-right"></i></a>';
-                }
-								infoStr+='<div class="modal fade" id="largeShoes" tabindex="-1" role="dialog" aria-labelledby="modalLabelLarge" aria-hidden="true"><div class="modal-dialog modal-lg" style="width: 100%"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="modalLabelLarge">Modal Title</h4></div><div class="modal-body">'
-	
+                }	
 								infoStr = infoStr.replace('<div class="featureInfo" id="featureInfoPopup' + i + '">', '<div id="popupPageSeeker">' + sAux + '</div><div class="featureInfo" id="featureInfoPopup' + i + '">');
             } else {
-							infoStr+='<div class="modal fade" id="largeShoes" tabindex="-1" role="dialog" aria-labelledby="modalLabelLarge" aria-hidden="true"><div class="modal-dialog modal-lg" style="width: 100%"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="modalLabelLarge">Modal Title</h4></div><div class="modal-body">'
-		
 							infoStr = infoStr.replace('<div class="featureInfo" id="featureInfoPopup' + i + '">', '<div class="featureInfo" style="display:none" id="featureInfoPopup' + i + '">');
             }
         }
