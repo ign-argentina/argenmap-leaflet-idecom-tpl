@@ -652,7 +652,7 @@ function loadWmsTpl (objLayer) {
 			}
 	}
 
-	var arreglosavejson = [];
+	var arreglosavecsv = [];
     //function createWmsLayer(wmsUrl, layer) {
     function createWmsLayer(objLayer) {
 				//Extends WMS.Source to customize popup behavior
@@ -682,14 +682,41 @@ function loadWmsTpl (objLayer) {
 
 									var tableD = new Datatable (JSON.parse(info),latlng)
 									createTabulator(tableD)
-									arreglosavejson[arreglosavejson.length]=tableD
+								
 								return;
             }
 				});
 
+				function convertToCSV(objArray) {
+					let str = "";
+
+					//encabezados
+					let aux = objArray[0]
+					let col = "";
+							for (let key in aux) {
+								 col+= key +"	"
+									}
+					col +="\n"
+					str+=col
+
+					//cuerpo
+					const array = typeof objArray != "object" ? JSON.parse(objArray) : objArray;
+					for (let i = 0; i < array.length; i++) {
+					 let line = "";
+						for (let index in array[i]) {
+								if (line != "") line += "\t";line += array[i][index];
+							}
+							str += line + "\n";
+
+					}
+					console.log(str)
+					arreglosavecsv[arreglosavecsv.length]=str
+				 }
+
 				function createTabulator(tableD){
 						if (tableD.data.features.length != 0){
 								var datos = tableD.getDataForTabulator();
+								convertToCSV(datos)
 								//primer div//
 								let div = document.createElement("div")
 								div.id="contenedorPrincipal"
@@ -727,17 +754,16 @@ function loadWmsTpl (objLayer) {
 								btnclose.innerHTML = "Close";
 								btnclose.onclick = function(){
 									document.body.removeChild(contenedorPrincipal)
-									arreglosavejson =[];
+									arreglosavecsv =[];
 								};
 
 								var btnsave= document.createElement("BUTTON");
-								btnsave.innerHTML = "Save Json";
+								btnsave.innerHTML = "Save CSV";
 								btnsave.onclick = function(){
-									var json = JSON.stringify(arreglosavejson)
-									var file = new File([json], "data.json", {type: "text/plain;charset=utf-8"});
+
+									var file = new File([arreglosavecsv], "data.csv", {type: "text/csv;charset=utf-8"});
 									saveAs(file);
 								};
-
 								div.appendChild(btn);
 								div.appendChild(btnmin);
 								div.appendChild(btnclose);
@@ -800,8 +826,8 @@ function loadWmsTpl (objLayer) {
 									responsiveLayout:"hide", // hide rows that no longer fit
 								 },
 								 );
-								 
 							}
+							
 				}
 
         //var wmsSource = new L.WMS.source(wmsUrl + "/wms?", {

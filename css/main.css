@@ -1,7 +1,4 @@
-#modaltable {
-	z-index: 99999; 
-	position: relative;
-}
+
 /*******************************
 Leaflet
 *******************************/
@@ -184,6 +181,8 @@ Control graticula
 	background-color: #f4f4f4;
 	cursor: pointer;
 }
+/*****************Tabulator**/
+
 
 
 /*******************************
@@ -212,6 +211,11 @@ Personalizado
 		background-repeat: no-repeat;
 		height: 50px;
 	}
+
+	#contenedorPrincipal{
+		left: 45px !important;
+		top: 0px !important;
+	}
 }
 @media (min-width: 769px) {
 	#top-left-logo {
@@ -221,8 +225,3 @@ Personalizado
 		height: 50px;
 	}
 }
-/**/
-
-
-
-
