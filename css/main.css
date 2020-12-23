@@ -182,6 +182,31 @@ Control graticula
 	cursor: pointer;
 }
 /*****************Tabulator**/
+#contenedorPrincipal{
+	text-align: right;
+	float: none;
+	border-radius: 8px;
+	z-index: 1200;
+	border: 3px;
+	padding: 5px;
+	background-color: white;
+	flex-flow: column;
+	width: 450px;
+	height: 450px;
+	left: 300px;
+	top: 100px;
+	overflow: hidden;
+	position: relative;
+	margin-bottom: 10px; 
+	-moz-box-shadow:    inset 0 0 10px #000000;
+  -webkit-box-shadow: inset 0 0 10px #000000;
+  box-shadow:         inset 0 0 10px #000000;
+}
+
+#tab-content{
+	overflow: auto;
+
+}
 
 
 
@@ -211,11 +236,6 @@ Personalizado
 		background-repeat: no-repeat;
 		height: 50px;
 	}
-
-	#contenedorPrincipal{
-		left: 45px !important;
-		top: 0px !important;
-	}
 }
 @media (min-width: 769px) {
 	#top-left-logo {
@@ -223,5 +243,59 @@ Personalizado
 		background-size: 336px 49.6px;
 		background-repeat: no-repeat;
 		height: 50px;
+	}
+}
+
+/*tabulator*/
+
+@media (max-width: 768px) {
+	#contenedorPrincipal{
+		left: 45px ;
+		top: 10px ;
+		max-width: 700px;
+	}
+}
+@media (max-width: 600px) {
+	#contenedorPrincipal{
+		left: 45px ;
+		top: 10px ;
+		max-width: 580px;
+	}
+}
+@media (max-width: 480px) {
+	#contenedorPrincipal{
+		left: 45px ;
+		top: 10px ;
+		max-width: 300px;
+	}
+}
+@media (max-width: 360px) {
+	#contenedorPrincipal{
+		left: 45px ;
+		top: 10px ;
+		max-width: 250px;
+	}
+}
+
+@media (max-height: 480px) {
+	#contenedorPrincipal{
+		left: 45px ;
+		top: 10px ;
+	  max-height: 380px;
+		overflow: scroll
+	}
+}
+@media (max-height: 420px) {
+	#contenedorPrincipal{
+		max-height: 300px;
+		overflow: scroll;
+	}
+}
+@media (max-height: 360px) {
+	#contenedorPrincipal{
+		left: 45px ;
+		top: 10px ;
+		max-height: 250px;
+		overflow: scroll
 	}
 }

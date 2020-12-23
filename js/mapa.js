@@ -9,6 +9,7 @@ var mapa = "";
 
 
 
+
 //Change logotype
 $('#top-left-logo-link').attr("href","https://www.argentina.gob.ar/jefatura/innovacion-publica/ssetic");
 $('#top-left-logo').attr("src","templates/argenmap-leaflet-idecom-tpl/img/subseticlogo2.png");
@@ -653,6 +654,9 @@ function loadWmsTpl (objLayer) {
 	}
 
 	var arreglosavecsv = [];
+	var datapush = [];
+  var table;
+	
     //function createWmsLayer(wmsUrl, layer) {
     function createWmsLayer(objLayer) {
 				//Extends WMS.Source to customize popup behavior
@@ -686,7 +690,7 @@ function loadWmsTpl (objLayer) {
 								return;
             }
 				});
-
+				
 				function convertToCSV(objArray) {
 					let str = "";
 
@@ -709,77 +713,78 @@ function loadWmsTpl (objLayer) {
 							str += line + "\n";
 
 					}
-					console.log(str)
 					arreglosavecsv[arreglosavecsv.length]=str
 				 }
-
+				 
 				function createTabulator(tableD){
 						if (tableD.data.features.length != 0){
 								var datos = tableD.getDataForTabulator();
 								convertToCSV(datos)
+								datapush.push(datos)
+								
 								//primer div//
 								let div = document.createElement("div")
 								div.id="contenedorPrincipal"
-								div.style.zIndex="3000"
-								div.style.border='3px'
-								div.style.padding= '5px'
-								div.style.backgroundColor="white"
-								div.style.flexFlow= 'column'
-								div.style.width="300px"
-								div.style.left="275px"
-								div.style.top="100px"
-								div.style.position="relative"
-								div.style.borderRadius = "8px"
-								
-							  var btn = document.createElement("BUTTON");
-								btn.innerHTML = "FullSize";
+																
+								var btn = document.createElement("BUTTON");
+								btn.id='btnmax'
+								btn.hidden= true
+								btn.innerHTML = '<span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span>';
 								btn.onclick = function(){
 								div2.style.display = "block"
-								div.style.width="75%"
 								div.style.height="450px"
-								document.getElementById("btnmin").disabled = false; 
+								document.getElementById("btnmax").hidden= true; 
+								document.getElementById("btnmin").hidden= false;
 								};
 
 								var btnmin= document.createElement("BUTTON");
 								btnmin.id="btnmin"
-								btnmin.innerHTML = "min";
+								btnmin.innerHTML = '<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>'
 								btnmin.onclick = function(){
 										div2.style.display = "none";
 										div.style.height="35px"
 										div.style.width="270px"
-										document.getElementById("btnmin").disabled = true; 
+										document.getElementById("btnmin").hidden= true;
+										document.getElementById("btnmax").hidden= false; 
 								};
 
 								var btnclose = document.createElement("BUTTON");
-								btnclose.innerHTML = "Close";
+								btnclose.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'
 								btnclose.onclick = function(){
 									document.body.removeChild(contenedorPrincipal)
 									arreglosavecsv =[];
+									datapush=[];
 								};
 
 								var btnsave= document.createElement("BUTTON");
-								btnsave.innerHTML = "Save CSV";
+								btnsave.innerHTML = '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true" title="Guardar como CSV"></span>';
 								btnsave.onclick = function(){
-
 									var file = new File([arreglosavecsv], "data.csv", {type: "text/csv;charset=utf-8"});
 									saveAs(file);
 								};
-								div.appendChild(btn);
-								div.appendChild(btnmin);
-								div.appendChild(btnclose);
+								
 								div.appendChild(btnsave);
+								div.appendChild(btnmin);
+								div.appendChild(btn);
+								div.appendChild(btnclose);
 
 								//segundo div//
 								let div2 = document.createElement("div")
-								div2.style.zIndex="3000"
 								div2.id='containerTables'
+
+								
 								let iniciaul = document.createElement("ul")
-								iniciaul.className='nav nav-tabs'
+								iniciaul.className='nav nav-pills'
 								iniciaul.id='indextabulator'
 
 								let primerli = document.createElement("li")
 								primerli.className="active"
-								primerli.innerHTML='<a data-toggle="tab" href="#example-table">Table 1</a>'
+								primerli.id=1
+								primerli.onclick =function(){
+										let data = datapush[this.id-1]
+										table.replaceData(data);
+								}
+								primerli.innerHTML='<a data-toggle="tab" id="1" href="#example-table">Tabla 1</a>'
 								iniciaul.appendChild(primerli)
 								div2.appendChild(iniciaul);
 
@@ -789,8 +794,8 @@ function loadWmsTpl (objLayer) {
 
 								//tercer div//
 								let div3 = document.createElement("div")
+								div3.style.display="inline"
 								div3.className= "tab-pane fade in active"
-								div3.style.zIndex="3000"
 								div3.id='example-table'
 
 								divtabs.appendChild(div3);
@@ -798,36 +803,67 @@ function loadWmsTpl (objLayer) {
 								div.appendChild(div2);
 
 								let i = ""
-
 								if (document.getElementById("contenedorPrincipal") !== null)
 								{ 
-									let ventanas = document.getElementsByClassName("tabulator-footer")
-									i = ventanas.length
-									div3.id="example-table"+i
-									//nuevo tab
-									div3.className="tab-pane fade"
-									document.getElementById("tab-content").appendChild(div3)
+									i = datapush.length
 									let linuevo = document.createElement("li")
-									linuevo.innerHTML='<a data-toggle="tab" href="#example-table'+i+'">Table'+(i+1)+'</a>'
+									linuevo.id=i
+
+									linuevo.onclick =function(){
+										let data = datapush[this.id-1]
+										table.replaceData(data);
+									}
+
+									linuevo.innerHTML='<a data-toggle="tab" id ='+i+' href="#example-table">Tabla '+(i)+'</a>'
 									document.getElementById("indextabulator").appendChild(linuevo)
 								}
 								else{
 									document.body.appendChild(div)
+									table = new Tabulator("#example-table"+i, {
+										data: datos, //assign data to table
+										autoColumns:true, //create columns from data field names
+										tooltips:true,            //show tool tips on cells
+										pagination:"local",       //paginate the data
+										paginationSize:10,         //allow 7 rows per page of data
+										movableColumns:true,      //allow column order to be changed
+										locale:true,
+										langs:{
+											"es-es":{
+													"pagination":{
+															"first":"Primera", //text for the first page button
+															"first_title":"Primera", //tooltip text for the first page button
+															"last":"Ultima",
+															"last_title":"Ultima",
+															"prev":"Anterior",
+															"prev_title":"Anterior",
+															"next":"Siguiente",
+															"next_title":"Siguiente",
+															"all":"Todo",
+													},
+											}
+									},
+									 });
+									 
+									 //filter//
+									 /*
+									 let titlecolums = table.getColumns();
+									 for (let i = 0; i < titlecolums.length; i++) {
+										let name = titlecolums[i]._column.definition.title
+										table.updateColumnDefinition(name, {headerFilter:true, headerFilterPlaceholder:" ",})
+									}*/
 								}
 								
-								var table = new Tabulator("#example-table"+i, {
-									data: datos, //assign data to table
-									autoColumns:true, //create columns from data field names
-									tooltips:true,            //show tool tips on cells
-									pagination:"local",       //paginate the data
-									paginationSize:10,         //allow 7 rows per page of data
-									movableColumns:true,      //allow column order to be changed
-									resizableRows:true,       //allow row order to be changed
-									responsiveLayout:"hide", // hide rows that no longer fit
-								 },
-								 );
+								$( "#contenedorPrincipal" ).draggable({
+									containment: "#mapa",
+            			scroll: false}
+								);
+								$( "#contenedorPrincipal" ).resizable({
+									containment: "#mapa",
+									minHeight: 65,
+									minWidth: 160,
+									scroll: true,
+								});
 							}
-							
 				}
 
         //var wmsSource = new L.WMS.source(wmsUrl + "/wms?", {
