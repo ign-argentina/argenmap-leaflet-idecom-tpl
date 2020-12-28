@@ -5,6 +5,8 @@ var atrib_ign = "<a href='https://www.ign.gob.ar/AreaServicios/Argenmap/Introduc
     layerData;
 var argenmap = "";
 var mapa = "";
+var datatable = [];
+var table;
 
 
 
@@ -645,17 +647,35 @@ function loadWmsTpl (objLayer) {
 		}
 
 		getDataForTabulator(){
-			let data = []
+			let dataaux = []
 				for (let i =0; i<this.data.features.length;i++ ){
-				data.push(this.data.features[i].properties)
+				dataaux.push(this.data.features[i].properties)
+				
 				}
-			return data
+
+				let names = Object.keys(dataaux[0])
+				for (let i =0; i<names.length; i++ ){
+					let col = names[i]
+					let nulscolum = 0
+
+					for (let j =0; j<dataaux.length; j++ ){
+							if (dataaux[j][col]== null || dataaux[j][col]== undefined){
+								nulscolum+=1;
+							}
+						}
+
+						if (nulscolum==dataaux.length){
+
+							for (let j =0; j<dataaux.length; j++ ){
+								delete dataaux[j][col]
+							}
+						}
+				}
+			return dataaux
 			}
 	}
 
-	var arreglosavecsv = [];
-	var datapush = [];
-  var table;
+	
 	
     //function createWmsLayer(wmsUrl, layer) {
     function createWmsLayer(objLayer) {
@@ -683,49 +703,63 @@ function loadWmsTpl (objLayer) {
 								}
 								*/
 								//llamada a tabulator
-
+									
 									var tableD = new Datatable (JSON.parse(info),latlng)
 									createTabulator(tableD)
-								
 								return;
             }
 				});
 				
-				function convertToCSV(objArray) {
-					let str = "";
+				function loadTabulator(data){
+					$( "#example-table" ).empty();
+					table = new Tabulator("#example-table", {
 
-					//encabezados
-					let aux = objArray[0]
-					let col = "";
-							for (let key in aux) {
-								 col+= key +"	"
-									}
-					col +="\n"
-					str+=col
+						data: data, //assign data to table
+						autoColumns:true, //create columns from data field names
+						tooltips:true,            //show tool tips on cells
+						pagination:"local",       //paginate the data
+						paginationSize:10,         //allow 7 rows per page of data
+						movableColumns:true,      //allow column order to be changed
+						locale:true,
+						rowDblClick:function(e, row){
+							//e - the click event object
+							if(row._row.data.Longitud){
+								let lon = row._row.data.Longitud
+								let lat = row._row.data.Latitud
+								//let marker = L.marker([lat, lon], {clickable: true})
+								//mapa.addLayer(marker);
+								mapa.flyTo([lat, lon],15)}
+						},
 
-					//cuerpo
-					const array = typeof objArray != "object" ? JSON.parse(objArray) : objArray;
-					for (let i = 0; i < array.length; i++) {
-					 let line = "";
-						for (let index in array[i]) {
-								if (line != "") line += "\t";line += array[i][index];
+						langs:{
+							"es-es":{
+									"pagination":{
+											"first":"Primera", //text for the first page button
+											"first_title":"Primera", //tooltip text for the first page button
+											"last":"Ultima",
+											"last_title":"Ultima",
+											"prev":"Anterior",
+											"prev_title":"Anterior",
+											"next":"Siguiente",
+											"next_title":"Siguiente",
+											"all":"Todo",
+									},
 							}
-							str += line + "\n";
 
-					}
-					arreglosavecsv[arreglosavecsv.length]=str
-				 }
-				 
+
+					},
+					 });
+					 table.deleteColumn("bbox");
+				}
+
 				function createTabulator(tableD){
 						if (tableD.data.features.length != 0){
 								var datos = tableD.getDataForTabulator();
-								convertToCSV(datos)
-								datapush.push(datos)
-								
+								datatable[datatable.length]=datos
+
 								//primer div//
 								let div = document.createElement("div")
 								div.id="contenedorPrincipal"
-																
 								var btn = document.createElement("BUTTON");
 								btn.id='btnmax'
 								btn.hidden= true
@@ -752,15 +786,13 @@ function loadWmsTpl (objLayer) {
 								btnclose.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'
 								btnclose.onclick = function(){
 									document.body.removeChild(contenedorPrincipal)
-									arreglosavecsv =[];
-									datapush=[];
+									datatable=[];
 								};
 
 								var btnsave= document.createElement("BUTTON");
 								btnsave.innerHTML = '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true" title="Guardar como CSV"></span>';
 								btnsave.onclick = function(){
-									var file = new File([arreglosavecsv], "data.csv", {type: "text/csv;charset=utf-8"});
-									saveAs(file);
+									table.download("csv", "data.csv", {bom:true});
 								};
 								
 								div.appendChild(btnsave);
@@ -771,7 +803,6 @@ function loadWmsTpl (objLayer) {
 								//segundo div//
 								let div2 = document.createElement("div")
 								div2.id='containerTables'
-
 								
 								let iniciaul = document.createElement("ul")
 								iniciaul.className='nav nav-pills'
@@ -781,8 +812,8 @@ function loadWmsTpl (objLayer) {
 								primerli.className="active"
 								primerli.id=1
 								primerli.onclick =function(){
-										let data = datapush[this.id-1]
-										table.replaceData(data);
+										let data = datatable[this.id-1]
+										loadTabulator(data)
 								}
 								primerli.innerHTML='<a data-toggle="tab" id="1" href="#example-table">Tabla 1</a>'
 								iniciaul.appendChild(primerli)
@@ -805,13 +836,21 @@ function loadWmsTpl (objLayer) {
 								let i = ""
 								if (document.getElementById("contenedorPrincipal") !== null)
 								{ 
-									i = datapush.length
+									i = datatable.length
 									let linuevo = document.createElement("li")
 									linuevo.id=i
 
 									linuevo.onclick =function(){
-										let data = datapush[this.id-1]
-										table.replaceData(data);
+										let data = datatable[this.id-1]
+										loadTabulator(data)
+										 
+										 //filter//
+										 /*
+										 let titlecolums = table.getColumns();
+										 for (let i = 0; i < titlecolums.length; i++) {
+											let name = titlecolums[i]._column.definition.title
+											table.updateColumnDefinition(name, {headerFilter:true, headerFilterPlaceholder:" ",})
+										}*/
 									}
 
 									linuevo.innerHTML='<a data-toggle="tab" id ='+i+' href="#example-table">Tabla '+(i)+'</a>'
@@ -819,40 +858,8 @@ function loadWmsTpl (objLayer) {
 								}
 								else{
 									document.body.appendChild(div)
-									table = new Tabulator("#example-table"+i, {
-										data: datos, //assign data to table
-										autoColumns:true, //create columns from data field names
-										tooltips:true,            //show tool tips on cells
-										pagination:"local",       //paginate the data
-										paginationSize:10,         //allow 7 rows per page of data
-										movableColumns:true,      //allow column order to be changed
-										locale:true,
-										langs:{
-											"es-es":{
-													"pagination":{
-															"first":"Primera", //text for the first page button
-															"first_title":"Primera", //tooltip text for the first page button
-															"last":"Ultima",
-															"last_title":"Ultima",
-															"prev":"Anterior",
-															"prev_title":"Anterior",
-															"next":"Siguiente",
-															"next_title":"Siguiente",
-															"all":"Todo",
-													},
-											}
-									},
-									 });
-									 
-									 //filter//
-									 /*
-									 let titlecolums = table.getColumns();
-									 for (let i = 0; i < titlecolums.length; i++) {
-										let name = titlecolums[i]._column.definition.title
-										table.updateColumnDefinition(name, {headerFilter:true, headerFilterPlaceholder:" ",})
-									}*/
+									loadTabulator(datos)
 								}
-								
 								$( "#contenedorPrincipal" ).draggable({
 									containment: "#mapa",
             			scroll: false}
