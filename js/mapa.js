@@ -665,7 +665,6 @@ function loadWmsTpl (objLayer) {
 						}
 
 						if (nulscolum==dataaux.length){
-
 							for (let j =0; j<dataaux.length; j++ ){
 								delete dataaux[j][col]
 							}
@@ -675,8 +674,6 @@ function loadWmsTpl (objLayer) {
 			}
 	}
 
-	
-	
     //function createWmsLayer(wmsUrl, layer) {
     function createWmsLayer(objLayer) {
 				//Extends WMS.Source to customize popup behavior
@@ -711,7 +708,9 @@ function loadWmsTpl (objLayer) {
 				});
 				
 				function loadTabulator(data){
-					$( "#example-table" ).empty();
+					$("#example-table").empty();
+					$("#filter-field").empty();
+
 					table = new Tabulator("#example-table", {
 
 						data: data, //assign data to table
@@ -745,21 +744,52 @@ function loadWmsTpl (objLayer) {
 											"all":"Todo",
 									},
 							}
-
-
 					},
 					 });
 					 table.deleteColumn("bbox");
+
+					 
+						document.getElementById("filter-value").addEventListener("keyup", updateFilter);
+
+						let headers = Object.keys(data[0])
+						let aux = `<option value="no">Selecciona una opción</option>`
+						headers.forEach( function(valor) {
+							if(valor!='bbox'){
+								aux +=`<option value="${valor}">${valor}</option>`
+							}
+					});
+					document.getElementById("filter-field").innerHTML = aux
+
+					var valueEl = document.getElementById("filter-value");
+					var fieldEl = document.getElementById("filter-field");
+
+					 function customFilter(data){
+
+						return data.car && data.rating < 3;
+						}
+						//Trigger setFilter function with correct parameters
+						function updateFilter(){
+							var filterVal = fieldEl.options[fieldEl.selectedIndex].value;
+							var filter = filterVal == "function" ? customFilter : filterVal;
+							if(filterVal & filterVal!="no"){
+									table.setFilter(filter,"like", valueEl.value);
+								}
+						}
+
 				}
 
 				function createTabulator(tableD){
 						if (tableD.data.features.length != 0){
 								var datos = tableD.getDataForTabulator();
 								datatable[datatable.length]=datos
-
+							  let indextabs = datatable.length
 								//primer div//
 								let div = document.createElement("div")
 								div.id="contenedorPrincipal"
+
+								var head = document.createElement("header");
+								head.id= "header-tabletabulator"
+
 								var btn = document.createElement("BUTTON");
 								btn.id='btnmax'
 								btn.hidden= true
@@ -794,11 +824,16 @@ function loadWmsTpl (objLayer) {
 								btnsave.onclick = function(){
 									table.download("csv", "data.csv", {bom:true});
 								};
+
 								
-								div.appendChild(btnsave);
-								div.appendChild(btnmin);
-								div.appendChild(btn);
-								div.appendChild(btnclose);
+								head.appendChild(btnsave);
+								head.appendChild(btnmin);
+								head.appendChild(btn);
+								head.appendChild(btnclose);
+								div.appendChild(head)
+
+								var nav = document.createElement("nav");
+								nav.id="nav-tabletabulator"
 
 								//segundo div//
 								let div2 = document.createElement("div")
@@ -810,7 +845,7 @@ function loadWmsTpl (objLayer) {
 
 								let primerli = document.createElement("li")
 								primerli.className="active"
-								primerli.id=1
+								primerli.id=indextabs
 								primerli.onclick =function(){
 										let data = datatable[this.id-1]
 										loadTabulator(data)
@@ -823,37 +858,56 @@ function loadWmsTpl (objLayer) {
 								divtabs.className= "tab-content"
 								divtabs.id="tab-content"
 
+								//en div2
+								let select = document.createElement("select")
+								select.id="filter-field"
+
+								let inputsearch = document.createElement("input")
+								inputsearch.id="filter-value"
+								inputsearch.type="text"
+								inputsearch.placeholder="Buscar"
+
+								let filterclear = document.createElement("button")
+								filterclear.id="filter-clear"
+								filterclear.innerHTML="Borrar"
+								filterclear.onclick = function(){
+									document.getElementById("filter-value").value= "";
+									document.getElementById("filter-field").selectedIndex = "0";
+
+									table.clearFilter();
+								}
+
 								//tercer div//
 								let div3 = document.createElement("div")
 								div3.style.display="inline"
 								div3.className= "tab-pane fade in active"
 								div3.id='example-table'
 
+								
 								divtabs.appendChild(div3);
-								div2.appendChild(divtabs);
-								div.appendChild(div2);
 
-								let i = ""
+								nav.appendChild(divtabs);
+
+								let filter = document.createElement("div")
+								filter.id= "filter-tabletabulator"
+
+								div.appendChild(div2); //example-table
+								div.appendChild(filter) //filter tools
+								filter.appendChild(select);
+								filter.appendChild(inputsearch);
+								filter.appendChild(filterclear);
+								div.appendChild(nav); //tabs
+
 								if (document.getElementById("contenedorPrincipal") !== null)
 								{ 
-									i = datatable.length
 									let linuevo = document.createElement("li")
-									linuevo.id=i
+									linuevo.id=indextabs
 
 									linuevo.onclick =function(){
 										let data = datatable[this.id-1]
 										loadTabulator(data)
-										 
-										 //filter//
-										 /*
-										 let titlecolums = table.getColumns();
-										 for (let i = 0; i < titlecolums.length; i++) {
-											let name = titlecolums[i]._column.definition.title
-											table.updateColumnDefinition(name, {headerFilter:true, headerFilterPlaceholder:" ",})
-										}*/
 									}
-
-									linuevo.innerHTML='<a data-toggle="tab" id ='+i+' href="#example-table">Tabla '+(i)+'</a>'
+									linuevo.innerHTML='<a data-toggle="tab" id ='+indextabs+' href="#example-table">Tabla '+indextabs+'</a>'
 									document.getElementById("indextabulator").appendChild(linuevo)
 								}
 								else{
