@@ -771,7 +771,7 @@ function loadWmsTpl (objLayer) {
 						function updateFilter(){
 							var filterVal = fieldEl.options[fieldEl.selectedIndex].value;
 							var filter = filterVal == "function" ? customFilter : filterVal;
-							if(filterVal & filterVal!="no"){
+							if(filterVal!="no"){
 									table.setFilter(filter,"like", valueEl.value);
 								}
 						}
@@ -796,9 +796,12 @@ function loadWmsTpl (objLayer) {
 								btn.innerHTML = '<span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span>';
 								btn.onclick = function(){
 								div2.style.display = "block"
-								div.style.height="450px"
+								div.style.height="475px"
+								div.style.width="450px"
 								document.getElementById("btnmax").hidden= true; 
 								document.getElementById("btnmin").hidden= false;
+								document.getElementById("filter-tabletabulator").hidden= false;
+								document.getElementById("tab-content").hidden= false;
 								};
 
 								var btnmin= document.createElement("BUTTON");
@@ -810,6 +813,8 @@ function loadWmsTpl (objLayer) {
 										div.style.width="270px"
 										document.getElementById("btnmin").hidden= true;
 										document.getElementById("btnmax").hidden= false; 
+										document.getElementById("filter-tabletabulator").hidden= true;
+										document.getElementById("tab-content").hidden= true;
 								};
 
 								var btnclose = document.createElement("BUTTON");
@@ -891,12 +896,14 @@ function loadWmsTpl (objLayer) {
 								let filter = document.createElement("div")
 								filter.id= "filter-tabletabulator"
 
+
 								div.appendChild(div2); //example-table
 								div.appendChild(filter) //filter tools
 								filter.appendChild(select);
 								filter.appendChild(inputsearch);
 								filter.appendChild(filterclear);
 								div.appendChild(nav); //tabs
+
 
 								if (document.getElementById("contenedorPrincipal") !== null)
 								{ 
@@ -921,7 +928,8 @@ function loadWmsTpl (objLayer) {
 								$( "#contenedorPrincipal" ).resizable({
 									containment: "#mapa",
 									minHeight: 65,
-									minWidth: 160,
+									maxHeight: 475,
+									minWidth: 450,
 									scroll: true,
 								});
 							}
