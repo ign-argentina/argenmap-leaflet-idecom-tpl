@@ -192,17 +192,13 @@ Control graticula
 	background-color: white;
 	flex-flow: column;
   width: 450px;
-	height: 475px;
 	left: 300px;
 	top: 100px;
 	overflow: hidden;
 	position: absolute;
 	margin-bottom: 10px; 
-	-moz-box-shadow:    inset 0 0 10px #000000;
-  -webkit-box-shadow: inset 0 0 10px #000000;
-  box-shadow:         inset 0 0 10px #000000;
+	box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
 #tab-content{
 	overflow: auto;
 }

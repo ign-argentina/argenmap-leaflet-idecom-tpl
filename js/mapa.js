@@ -796,12 +796,12 @@ function loadWmsTpl (objLayer) {
 								btn.innerHTML = '<span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span>';
 								btn.onclick = function(){
 								div2.style.display = "block"
-								div.style.height="475px"
-								div.style.width="450px"
 								document.getElementById("btnmax").hidden= true; 
 								document.getElementById("btnmin").hidden= false;
 								document.getElementById("filter-tabletabulator").hidden= false;
 								document.getElementById("tab-content").hidden= false;
+								div.style.height = ""
+								div.style.width = "450px"
 								};
 
 								var btnmin= document.createElement("BUTTON");
