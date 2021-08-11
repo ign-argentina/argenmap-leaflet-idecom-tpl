@@ -37,5 +37,36 @@
       "max": 21
     }
   },
-  "showSearchBar": false
+  "showSearchBar": false,
+  "referencias": {
+    "show": false,
+    "src": "src/styles/images/referencias_icono.png",
+    "width":"25px",
+    "height":"31px"
+  },
+  "theme": {
+    "bodyBackground": "#008dc9",
+    "headerBackground": "#008dc9",
+    "menuBackground": "#008dc9",
+    "activeLayer": "#33b560",
+    "textMenu":"white",
+    "textMenuStyle":"",
+    "textLegendMenu":"#dddddd",
+    "textLegendMenuStyle":"",
+    "iconBar":"#4f4f4f"
+    },
+  "logo": {
+    "title":"Subsecretaría de Tecnologías de la Información y las Comunicaciones",
+    "src": "src/config/styles/images/subseticlogo2.png",
+    "height": "55%",
+    "width": "",
+    "style": "",
+    "srcLogoMini": "src/config/styles/images/subseticlogo2.png",
+    "miniHeight": "",
+    "miniWidth": "",
+    "ministyle": ""
+  },
+  "title": "IGN ARGENMAP IDECOM",
+  "website": "https://www.argentina.gob.ar/jefatura/innovacion-publica/ssetic",
+  "favicon": "src/config/styles/images/favicon.ico"
 }
