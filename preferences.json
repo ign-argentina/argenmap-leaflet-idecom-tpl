@@ -41,30 +41,31 @@
   "referencias": {
     "show": false,
     "src": "src/styles/images/referencias_icono.png",
-    "width":"25px",
-    "height":"31px"
+    "width": "25px",
+    "height": "31px"
   },
   "theme": {
     "bodyBackground": "#008dc9",
     "headerBackground": "#008dc9",
     "menuBackground": "#008dc9",
     "activeLayer": "#33b560",
-    "textMenu":"white",
-    "textMenuStyle":"",
-    "textLegendMenu":"#dddddd",
-    "textLegendMenuStyle":"",
-    "iconBar":"#4f4f4f"
-    },
+    "textMenu": "white",
+    "textMenuStyle": "",
+    "textLegendMenu": "#dddddd",
+    "textLegendMenuStyle": "",
+    "iconBar": "#4f4f4f"
+  },
   "logo": {
-    "title":"Subsecretaría de Tecnologías de la Información y las Comunicaciones",
-    "src": "src/config/styles/images/subseticlogo2.png",
-    "height": "55%",
-    "width": "",
-    "style": "",
-    "srcLogoMini": "src/config/styles/images/subseticlogo2.png",
-    "miniHeight": "252px",
+    "title": "Subsecretaría de Tecnologías de la Información y las Comunicaciones",
+    "src": "src/config/styles/images/logo-idecom-fondo.png",
+    "height": "48px",
+    "width": "333px",
+    "style": "margin-left: 0px; background-size: 100%; resize: both;",
+    "srcLogoMini": "src/config/styles/images/logo-idecom-fondo.png",
+    "miniHeight": "",
     "miniWidth": "",
-    "ministyle": ""
+    "ministyle": "",
+    "link": ""
   },
   "title": "IGN ARGENMAP IDECOM",
   "website": "https://www.argentina.gob.ar/jefatura/innovacion-publica/ssetic",
