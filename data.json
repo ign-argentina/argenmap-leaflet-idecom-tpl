@@ -119,28 +119,44 @@
       "tab": {
         "id": "publico",
         "searcheable": true,
-        "content": "IDECOM"
+        "content": "Público"
       },
       "type": "wms",
-      "peso": 10,
-      "nombre": "IDECOM",
-      "short_abstract": "Datos públicos de la SubSeTIC",
+      "peso": 15,
+      "nombre": "Conectividad Rural",
+      "short_abstract": "Antenas 450",
       "class": "",
-      "seccion": "datos-publicos",
+      "seccion": "450publica",
       "servicio": "wms",
       "version": "1.3.0",
-      "host": "https://www.idecom.gob.ar/geoserver/publico"
+      "host": "https://www.idecom.gob.ar/geoserver/rural"
     },
     {
       "tab": {
-        "id": "privavdo",
+        "id": "publico",
         "searcheable": true,
-        "content": "IDECOM"
+        "content": "Público"
       },
       "type": "wms",
-      "peso": 20,
-      "nombre": "IDECOM",
-      "short_abstract": "Datos de uso interno de la SubSeTIC",
+      "peso": 17,
+      "nombre": "Conectividad Fibra Optica",
+      "short_abstract": "Trazas y Nodos FO",
+      "class": "",
+      "seccion": "FOpublica",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/fibra_op"
+    },
+    {
+      "tab": {
+        "id": "privado",
+        "searcheable": true,
+        "content": "Privado"
+      },
+      "type": "wms",
+      "peso": 10,
+      "nombre": "Conectividad Móvil",
+      "short_abstract": "Antenas 2G, 3G y 4G",
       "class": "",
       "seccion": "privado",
       "servicio": "wms",
@@ -151,12 +167,60 @@
       "tab": {
         "id": "privado",
         "searcheable": true,
-        "content": "IDECOM"
+        "content": "Privado"
+      },
+      "type": "wms",
+      "peso": 15,
+      "nombre": "Conectividad Rural",
+      "short_abstract": "Antenas 450",
+      "class": "",
+      "seccion": "450privada",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/rural_privada"
+    },
+    {
+      "tab": {
+        "id": "privado",
+        "searcheable": true,
+        "content": "Privado"
+      },
+      "type": "wms",
+      "peso": 17,
+      "nombre": "Conectividad Fibra Optica",
+      "short_abstract": "Trazas y Nodos FO",
+      "class": "",
+      "seccion": "FOprivada",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/fibra_op_privada"
+    },
+    {
+      "tab": {
+        "id": "privado",
+        "searcheable": true,
+        "content": "Privado"
+      },
+      "type": "wms",
+      "peso": 58,
+      "nombre": "Análisis Obligaciones",
+      "short_abstract": "Asignación 4G",
+      "class": "",
+      "seccion": "geo_privadoY",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/geoproceso_privadoY"
+    },
+    {
+      "tab": {
+        "id": "privado",
+        "searcheable": true,
+        "content": "Privado"
       },
       "type": "wms",
       "peso": 60,
-      "nombre": "Análisis de Comunicaciones",
-      "short_abstract": "Datos de uso interno de la SubSeTIC",
+      "nombre": "Análisis Indice 1",
+      "short_abstract": "Comunicaciones y Población",
       "class": "",
       "seccion": "geo_privado",
       "servicio": "wms",
@@ -165,29 +229,158 @@
     },
     {
       "tab": {
-        "id": "base",
+        "id": "privado",
         "searcheable": true,
-        "content": "IDECOM"
+        "content": "Privado"
       },
       "type": "wms",
-      "peso": 50,
-      "nombre": "Información Territorial",
-      "short_abstract": "Geoservicios provistos por los organismos oficiales",
+      "peso": 61,
+      "nombre": "Análisis Indice 1a",
+      "short_abstract": "Comunicaciones y Población",
       "class": "",
-      "seccion": "geoservicios",
+      "seccion": "geo_privado1a",
       "servicio": "wms",
       "version": "1.3.0",
-      "host": "https://www.idecom.gob.ar/geoserver/geoservicios"
+      "host": "https://www.idecom.gob.ar/geoserver/geoproceso_privado1a"
+    },
+    {
+      "tab": {
+        "id": "privado",
+        "searcheable": true,
+        "content": "Privado"
+      },
+      "type": "wms",
+      "peso": 62,
+      "nombre": "Análisis Indice 2",
+      "short_abstract": "Comunicaciones y Vías de Transporte",
+      "class": "",
+      "seccion": "geo_privado2",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/geoproceso_privado2"
+    },
+    {
+      "tab": {
+        "id": "privado",
+        "searcheable": true,
+        "content": "Privado"
+      },
+      "type": "wms",
+      "peso": 66,
+      "nombre": "Estudios Conectividad",
+      "short_abstract": "Fibra óptica",
+      "class": "",
+      "seccion": "est_FO",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/estudioFO"
+    },
+    {
+      "tab": {
+        "id": "datosabiertos",
+        "searcheable": true,
+        "content": "Datos Abiertos"
+      },
+      "type": "wms",
+      "peso": 69,
+      "nombre": "Unión Internacional de Telecomunicaciones",
+      "short_abstract": "Servicio WMS externo UIT",
+      "class": "",
+      "seccion": "geo_ext",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/geoservicios_ext"
+    },
+    {
+      "tab": {
+        "id": "privado",
+        "searcheable": true,
+        "content": "Privado"
+      },
+      "type": "wms",
+      "peso": 70,
+      "nombre": ".Pruebas",
+      "short_abstract": "Datos de uso interno de la SubSeTIC",
+      "class": "",
+      "seccion": "pru_privado",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/pruebas_privado"
+    },
+    {
+      "tab": {
+        "id": "datosabiertos",
+        "searcheable": true,
+        "content": "Datos Abiertos"
+      },
+      "type": "wms",
+      "peso": 46,
+      "nombre": "Kits de Robótica Educativa",
+      "short_abstract": "Sistemas Internet of Things (IoT)",
+      "class": "",
+      "seccion": "sistemasiot",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/sistemasIoT"
+    },
+    {
+      "tab": {
+        "id": "datosabiertos",
+        "searcheable": true,
+        "content": "Datos Abiertos"
+      },
+      "type": "wms",
+      "peso": 42,
+      "nombre": "Conectividad Satelital",
+      "short_abstract": "Asuntos Satelitales",
+      "class": "",
+      "seccion": "asuntos_sat",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/AsuntosSatelitales"
+    },
+    {
+      "tab": {
+        "id": "datosabiertos",
+        "searcheable": true,
+        "content": "Datos Abiertos"
+      },
+      "type": "wms",
+      "peso": 44,
+      "nombre": "TDA",
+      "short_abstract": "Televisión Digital Abierta",
+      "class": "",
+      "seccion": "TDA",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/TDA"
+    },
+    {
+      "tab": {
+        "id": "datosabiertos",
+        "searcheable": true,
+        "content": "Datos Abiertos"
+      },
+      "type": "wms",
+      "peso": 48,
+      "nombre": "Puntos Digitales",
+      "short_abstract": "Espacios públicos y gratuitos",
+      "class": "",
+      "seccion": "datosabiertos",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/datosabiertos"
     },
     {
       "tab": {
         "id": "base",
         "searcheable": true,
-        "content": "IDECOM"
+        "content": "Base"
       },
-      "peso": 40,
+      "type": "wms",
+      "peso": 50,
       "nombre": "Información Territorial",
-      "short_abstract": "Capas oficiales residentes en IDECOM",
+      "short_abstract": "Capas oficiales postprocesadas para el análisis de telecomunicaciones, residentes en IDECOM",
       "class": "",
       "seccion": "base",
       "servicio": "wms",
