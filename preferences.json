@@ -1,60 +1,14 @@
 {
-  "profiles": {
-    "default": {
-      "data": ["publico", "geoservicios", "base"],
-      "modules": ["login"]
-    },
-    "logged": {
-      "data": ["privado", "base"],
-      "modules": ["login"]
-    },
-    "test": {
-      "data": []
-    }
-  },
-  "table": {
-    "isActive": true,
-    "rowsLimit": 5
-  },
+  "analytics_ids": [
+    "G-8HSYJ79EPQ"
+  ],
   "charts": {
     "isActive": true
   },
-  "metaTags": {
-    "title": "",
-    "description": "",
-    "image": ""
-  },
-  "analytics_ids": ["G-8HSYJ79EPQ"],
-  "excluded_plugins": ["minimap"],
-  "mapConfig": {
-    "center": {
-      "latitude": -40,
-      "longitude": -59
-    },
-    "zoom": {
-      "initial": 4,
-      "min": 3,
-      "max": 21
-    }
-  },
-  "showSearchBar": false,
-  "referencias": {
-    "show": false,
-    "src": "src/styles/images/referencias_icono.png",
-    "width": "25px",
-    "height": "31px"
-  },
-  "theme": {
-    "bodyBackground": "#008dc9",
-    "headerBackground": "#008dc9",
-    "menuBackground": "#008dc9",
-    "activeLayer": "#33b560",
-    "textMenu": "white",
-    "textMenuStyle": "",
-    "textLegendMenu": "#dddddd",
-    "textLegendMenuStyle": "",
-    "iconBar": "#4f4f4f"
-  },
+  "excluded_plugins": [
+    "minimap"
+  ],
+  "favicon": "src/config/styles/images/favicon.ico",
   "logo": {
     "title": "Subsecretaría de Tecnologías de la Información y las Comunicaciones",
     "src": "src/config/styles/images/logo-idecom-fondo.png",
@@ -67,7 +21,68 @@
     "ministyle": "",
     "link": ""
   },
+  "mapConfig": {
+    "center": {
+      "latitude": -40,
+      "longitude": -59
+    },
+    "zoom": {
+      "initial": 4,
+      "min": 3,
+      "max": 21
+    }
+  },
+  "metaTags": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "profiles": {
+    "default": {
+      "data": [
+        "publico",
+        "geoservicios",
+        "base"
+      ],
+      "modules": [
+        "login"
+      ]
+    },
+    "logged": {
+      "data": [
+        "privado",
+        "base"
+      ],
+      "modules": [
+        "login"
+      ]
+    },
+    "test": {
+      "data": []
+    }
+  },
+  "referencias": {
+    "show": false,
+    "src": "src/styles/images/referencias_icono.png",
+    "width": "25px",
+    "height": "31px"
+  },
+  "showSearchBar": false,
+  "table": {
+    "isActive": true,
+    "rowsLimit": 5
+  },
+  "theme": {
+    "bodyBackground": "#008dc9",
+    "headerBackground": "#008dc9",
+    "menuBackground": "#008dc9",
+    "activeLayer": "#33b560",
+    "textMenu": "white",
+    "textMenuStyle": "",
+    "textLegendMenu": "#dddddd",
+    "textLegendMenuStyle": "",
+    "iconBar": "#4f4f4f"
+  },
   "title": "IGN ARGENMAP IDECOM",
-  "website": "https://www.argentina.gob.ar/jefatura/innovacion-publica/ssetic",
-  "favicon": "src/config/styles/images/favicon.ico"
+  "website": "https://www.argentina.gob.ar/jefatura/innovacion-publica/ssetic"
 }
