@@ -75,13 +75,13 @@
   "logo": {
     "title": "Subsecretaría de Tecnologías de la Información y las Comunicaciones",
     "src": "src/config/styles/images/logo-idecom-fondo.png",
-    "height": "48px",
-    "width": "333px",
+    "height": "",
+    "width": "310px",
     "style": "margin-left: 0px; background-size: 100%; resize: both;",
-    "srcLogoMini": "src/config/styles/images/logo-idecom-fondo.png",
+    "srcLogoMini": "src/config/styles/images/logo-idecom-fondo-mini.png",
     "miniHeight": "",
     "miniWidth": "",
-    "ministyle": "filter: drop-shadow(1px 1px 1px #103847);",
+    "ministyle": "width: 130px; background-size: contain;",
     "link": ""
   },
   "mapConfig": {
@@ -140,5 +140,5 @@
     "iconBar": "#4f4f4f"
   },
   "title": "IDECOM - IGN ARGENMAP",
-  "website": "https://www.argentina.gob.ar/jefatura/innovacion-publica/ssetic"
+  "website": "https://www.argentina.gob.ar/jefatura/innovacion-publica/telecomunicaciones-y-conectividad"
 }
