@@ -124,6 +124,16 @@
     "basemap_min_zoom": "Zoom mínimo de ",
     "delete_geometry": "Eliminar geometría"
   },
+  "profiles": {
+    "default": {
+      "data": [
+        "publico",
+        "base",
+        "datosabiertos"
+      ],
+      "modules": []
+    }
+  },
   "table": {
     "isActive": true,
     "rowsLimit": 5
