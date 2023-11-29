@@ -122,22 +122,6 @@
         "content": "Público"
       },
       "type": "wms",
-      "peso": 10,
-      "nombre": "Conectividad Móvil",
-      "short_abstract": "Antenas 2G, 3G y 4G",
-      "class": "publico",
-      "seccion": "datos-publicos",
-      "servicio": "wms",
-      "version": "1.3.0",
-      "host": "https://www.idecom.gob.ar/geoserver/publico/wms"
-    },
-    {
-      "tab": {
-        "id": "publico",
-        "searcheable": true,
-        "content": "Público"
-      },
-      "type": "wms",
       "peso": 12,
       "nombre": "Obligaciones",
       "short_abstract": "Asignación 4G",
@@ -293,15 +277,15 @@
     },
     {
       "tab": {
-        "id": "privado",
+        "id": "publico",
         "searcheable": true,
-        "content": "Privado"
+        "content": "Público"
       },
       "type": "wms",
       "peso": 110,
       "nombre": "Conectividad Móvil",
       "short_abstract": "Antenas 2G, 3G y 4G",
-      "class": "",
+      "class": "privado",
       "seccion": "privado",
       "servicio": "wms",
       "version": "1.3.0",
@@ -309,15 +293,15 @@
     },
     {
       "tab": {
-        "id": "privado",
+        "id": "publico",
         "searcheable": true,
-        "content": "Privado"
+        "content": "Público"
       },
       "type": "wms",
       "peso": 115,
       "nombre": "Conectividad Rural",
       "short_abstract": "Antenas 450",
-      "class": "",
+      "class": "privado",
       "seccion": "450privada",
       "servicio": "wms",
       "version": "1.3.0",
@@ -325,15 +309,15 @@
     },
     {
       "tab": {
-        "id": "privado",
+        "id": "publico",
         "searcheable": true,
-        "content": "Privado"
+        "content": "Público"
       },
       "type": "wms",
       "peso": 117,
       "nombre": "Conectividad Fibra Optica",
       "short_abstract": "Trazas y Nodos FO",
-      "class": "",
+      "class": "privado",
       "seccion": "FOprivada",
       "servicio": "wms",
       "version": "1.3.0",
@@ -341,15 +325,15 @@
     },
     {
       "tab": {
-        "id": "privado",
+        "id": "publico",
         "searcheable": true,
-        "content": "Privado"
+        "content": "Público"
       },
       "type": "wms",
       "peso": 158,
       "nombre": "Análisis Obligaciones",
       "short_abstract": "Asignación 4G",
-      "class": "",
+      "class": "privado",
       "seccion": "geo_privadoY",
       "servicio": "wms",
       "version": "1.3.0",
@@ -357,15 +341,15 @@
     },
     {
       "tab": {
-        "id": "privado",
+        "id": "publico",
         "searcheable": true,
-        "content": "Privado"
+        "content": "Público"
       },
       "type": "wms",
       "peso": 160,
       "nombre": "Análisis Indice 1",
       "short_abstract": "Comunicaciones y Población",
-      "class": "",
+      "class": "privado",
       "seccion": "geo_privado",
       "servicio": "wms",
       "version": "1.3.0",
@@ -373,15 +357,15 @@
     },
     {
       "tab": {
-        "id": "privado",
+        "id": "publico",
         "searcheable": true,
-        "content": "Privado"
+        "content": "Público"
       },
       "type": "wms",
       "peso": 161,
       "nombre": "Análisis Indice 1a",
       "short_abstract": "Comunicaciones y Población",
-      "class": "",
+      "class": "privado",
       "seccion": "geo_privado1a",
       "servicio": "wms",
       "version": "1.3.0",
@@ -389,15 +373,15 @@
     },
     {
       "tab": {
-        "id": "privado",
+        "id": "publico",
         "searcheable": true,
-        "content": "Privado"
+        "content": "Público"
       },
       "type": "wms",
       "peso": 162,
       "nombre": "Análisis Indice 2",
       "short_abstract": "Comunicaciones y Vías de Transporte",
-      "class": "",
+      "class": "privado",
       "seccion": "geo_privado2",
       "servicio": "wms",
       "version": "1.3.0",
@@ -405,15 +389,15 @@
     },
     {
       "tab": {
-        "id": "privado",
+        "id": "publico",
         "searcheable": true,
-        "content": "Privado"
+        "content": "Público"
       },
       "type": "wms",
       "peso": 166,
       "nombre": "Estudios Conectividad",
       "short_abstract": "Fibra óptica",
-      "class": "",
+      "class": "privado",
       "seccion": "est_FO",
       "servicio": "wms",
       "version": "1.3.0",
@@ -421,15 +405,15 @@
     },
     {
       "tab": {
-        "id": "privado",
+        "id": "publico",
         "searcheable": true,
-        "content": "Privado"
+        "content": "Público"
       },
       "type": "wms",
       "peso": 170,
       "nombre": "Pruebas",
       "short_abstract": "Datos de uso interno de la SubSeTIC",
-      "class": "",
+      "class": "privado",
       "seccion": "pru_privado",
       "servicio": "wms",
       "version": "1.3.0",
