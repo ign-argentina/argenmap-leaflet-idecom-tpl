@@ -131,7 +131,19 @@
         "base",
         "datosabiertos"
       ],
-      "modules": []
+      "modules": [
+        "login"
+      ]
+    },
+    "logged": {
+      "data": [
+        "privado",
+        "base",
+        "datosabiertos"
+      ],
+      "modules": [
+        "login"
+      ]
     }
   },
   "table": {
