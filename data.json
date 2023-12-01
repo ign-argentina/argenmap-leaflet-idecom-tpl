@@ -141,7 +141,7 @@
       "peso": 12,
       "nombre": "Obligaciones",
       "short_abstract": "Asignación 4G",
-      "class": "publico",
+      "class": "base",
       "seccion": "obligpublico",
       "servicio": "wms",
       "version": "1.3.0",
@@ -282,7 +282,7 @@
         "content": "Público"
       },
       "type": "wms",
-      "peso": 40,
+      "peso": 200,
       "nombre": "Unión Internacional de Telecomunicaciones",
       "short_abstract": "Servicio WMS externo UIT",
       "class": "datosabiertos",
@@ -298,7 +298,7 @@
         "content": "Público"
       },
       "type": "wms",
-      "peso": 110,
+      "peso": 10,
       "nombre": "Conectividad Móvil",
       "short_abstract": "Antenas 2G, 3G y 4G",
       "class": "privado",
@@ -314,7 +314,7 @@
         "content": "Público"
       },
       "type": "wms",
-      "peso": 115,
+      "peso": 15,
       "nombre": "Conectividad Rural",
       "short_abstract": "Antenas 450",
       "class": "privado",
@@ -330,7 +330,7 @@
         "content": "Público"
       },
       "type": "wms",
-      "peso": 117,
+      "peso": 17,
       "nombre": "Conectividad Fibra Optica",
       "short_abstract": "Trazas y Nodos FO",
       "class": "privado",
