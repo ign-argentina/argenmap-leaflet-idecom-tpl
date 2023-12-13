@@ -139,7 +139,7 @@
       },
       "type": "wms",
       "peso": 12,
-      "nombre": "Obligaciones - Asignación 4G",
+      "nombre": "Obligaciones",
       "short_abstract": "Asignación 4G",
       "class": "base",
       "seccion": "obligpublico",
