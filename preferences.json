@@ -1,0 +1,166 @@
+{
+  "analytics_ids": [
+    "G-FDKCPW8L65"
+  ],
+  "charts": {
+    "isActive": true
+  },
+  "excluded_plugins": [
+    "minimap"
+  ],
+  "favicon": "src/config/styles/images/favicon.ico",
+  "geocoder": {
+    "key": "",
+    "lang": "es",
+    "limit": 5,
+    "query": "q",
+    "search": "search",
+    "url": "https://api.ign.gob.ar/buscador/",
+    "url_by_id": "places"
+  },
+  "geoprocessing": {
+    "availableProcesses": [
+      {
+        "baseUrl": "https://imagenes.ign.gob.ar/geoserver/geoprocesos/ows?service=WPS&version=1.0.0",
+        "geoprocess": "contour",
+        "layer": "alos_unificado",
+        "name": "Curvas de Nivel",
+        "namePrefix": "curvas_de_nivel_",
+        "styles": {
+          "d_line_color": "#967529",
+          "d_line_m": 500,
+          "d_weigth": 1,
+          "line_color": "#e0b44c",
+          "line_weight": 0.8,
+          "smoothFactor": 1.7
+        }
+      },
+      {
+        "baseUrl": "https://imagenes.ign.gob.ar/geoserver/ows?service=WPS&version=1.0.0",
+        "geoprocess": "waterRise",
+        "layer": "geoprocesos:alos_unificado",
+        "name": "Cota",
+        "namePrefix": "cota_"
+      },
+      {
+        "geoprocess": "buffer",
+        "name": "Área de influencia",
+        "namePrefix": "area_de_influencia_"
+      },
+      {
+        "geoprocess": "elevationProfile",
+        "name": "Perfil de Elevación",
+        "namePrefix": "profile_"
+      }
+    ],
+    "buttonIcon": "fa fa-cog",
+    "buttonTitle": "Geoprocesos",
+    "dialogTitle": "Geoprocesos",
+    "isActive": true,
+    "strings": {
+      "bounds": "Areas a procesar"
+    }
+  },
+  "hillshade": {
+    "addTo": [
+      "argenmap",
+      "argenmap_gris"
+    ],
+    "attribution": "sombra de montaña <a target='_blank' href='https://www.arcgis.com/home/item.html?id=1b243539f4514b6ba35e7d995890db1d'>©Esri</a>",
+    "icon": "src/styles/images/mountains.svg",
+    "name": "hillshade",
+    "switchLabel": "Agregar sombra de montaña Esri",
+    "url": "https://services.arcgisonline.com/arcgis/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}.png"
+  },
+  "logo": {
+    "title": "Subsecretaría de Tecnologías de la Información y las Comunicaciones",
+    "src": "src/config/styles/images/logo-idecom-fondo.png",
+    "height": "",
+    "width": "310px",
+    "style": "margin-left: 0px; background-size: 100%; resize: both;",
+    "srcLogoMini": "src/config/styles/images/logo-idecom-fondo-mini.png",
+    "miniHeight": "",
+    "miniWidth": "",
+    "ministyle": "width: 130px; background-size: contain;",
+    "link": ""
+  },
+  "mapConfig": {
+    "center": {
+      "latitude": -40,
+      "longitude": -59
+    },
+    "zoom": {
+      "initial": 4,
+      "min": 3,
+      "max": 21
+    }
+  },
+  "metaTags": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "referencias": {
+    "height": "",
+    "icon": "src/config/styles/images/referencias.png",
+    "image": "src/config/styles/images/legends/referencias.png",
+    "show": false,
+    "width": ""
+  },
+  "searchbar": {
+    "background_color": "rgba(255, 255, 255, 0.7)",
+    "color_focus": "#008dc9",
+    "isActive": true,
+    "left": "40%",
+    "strings": {
+      "placeholder": "Buscar localidad..."
+    },
+    "top": "5px"
+  },
+  "showSearchBar": true,
+  "strings": {
+    "basemap_legend_button_text": "Ver leyenda del mapa",
+    "basemap_max_zoom": " y máximo de ",
+    "basemap_min_zoom": "Zoom mínimo de ",
+    "delete_geometry": "Eliminar geometría"
+  },
+  "profiles": {
+    "default": {
+      "data": [
+        "publico",
+        "base",
+        "datosabiertos"
+      ],
+      "modules": [
+        "login"
+      ]
+    },
+    "logged": {
+      "data": [
+        "privado",
+        "base",
+        "datosabiertos"
+      ],
+      "modules": [
+        "login"
+      ]
+    }
+  },
+  "table": {
+    "isActive": true,
+    "rowsLimit": 5
+  },
+  "theme": {
+    "bodyBackground": "#008dc9",
+    "headerBackground": "#008dc9",
+    "menuBackground": "#008dc9",
+    "activeLayer": "#33b560",
+    "textMenu": "white",
+    "textMenuStyle": "",
+    "textLegendMenu": "#dddddd",
+    "textLegendMenuStyle": "",
+    "iconBar": "#4f4f4f"
+  },
+  "title": "IDECOM - IGN ARGENMAP",
+  "website": "https://www.argentina.gob.ar/jefatura/innovacion-publica/telecomunicaciones-y-conectividad"
+}

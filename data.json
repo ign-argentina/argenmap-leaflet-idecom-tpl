@@ -1,0 +1,443 @@
+{
+  "items": [
+    {
+      "tab": "",
+      "type": "basemap",
+      "peso": 1,
+      "nombre": "Mapas base",
+      "short_abstract": "",
+      "class": "",
+      "seccion": "mapasbase",
+      "capas": [
+        {
+          "titulo": "Argenmap",
+          "nombre": "argenmap",
+          "servicio": "tms",
+          "version": "1.0.0",
+          "attribution": "<a href='https://www.ign.gob.ar/AreaServicios/Argenmap/Introduccion' target='_blank'>Instituto Geográfico Nacional</a> + <a href='https://www.osm.org/copyright' target='_blank'>OpenStreetMap</a>",
+          "host": "https://wms.ign.gob.ar/geoserver/gwc/service/tms/1.0.0/capabaseargenmap@EPSG%3A3857@png/{z}/{x}/{-y}.png",
+          "legendImg": "src/styles/images/argenmap.png",
+          "legend": "src/config/styles/images/legends/argenmap.jpg",
+          "peso": 10,
+          "selected": true,
+          "zoom": {
+            "min": 3,
+            "max": 19
+          }
+        },
+        {
+          "titulo": "Argenmap gris",
+          "nombre": "argenmap_gris",
+          "servicio": "tms",
+          "version": "1.0.0",
+          "attribution": "<a href='https://www.ign.gob.ar/AreaServicios/Argenmap/Introduccion' target='_blank'>Instituto Geográfico Nacional</a> + <a href='https://www.osm.org/copyright' target='_blank'>OpenStreetMap</a>",
+          "host": "https://wms.ign.gob.ar/geoserver/gwc/service/tms/1.0.0/mapabase_gris@EPSG%3A3857@png/{z}/{x}/{-y}.png",
+          "legendImg": "src/styles/images/argenmap-gris.png",
+          "legend": "src/config/styles/images/legends/argenmap-gris.jpg",
+          "peso": 20,
+          "zoom": {
+            "min": 3,
+            "max": 19
+          }
+        },
+        {
+          "titulo": "Argenmap oscuro",
+          "nombre": "argenmap_oscuro",
+          "servicio": "tms",
+          "version": "1.0.0",
+          "attribution": "<a href='https://www.ign.gob.ar/AreaServicios/Argenmap/Introduccion' target='_blank'>Instituto Geográfico Nacional</a> + <a href='https://www.osm.org/copyright' target='_blank'>OpenStreetMap</a>",
+          "host": "https://wms.ign.gob.ar/geoserver/gwc/service/tms/1.0.0/argenmap_oscuro@EPSG%3A3857@png/{z}/{x}/{-y}.png",
+          "legendImg": "https://mapa.ign.gob.ar/src/config/styles/images/argenmap-oscuro.png",
+          "legend": "src/config/styles/images/legends/argenmap-oscuro.jpg",
+          "peso": 25,
+          "zoom": {
+            "min": 3,
+            "max": 19
+          }
+        },
+        {
+          "titulo": "Argenmap topográfico",
+          "nombre": "argenmap-topo",
+          "servicio": "tms",
+          "version": "1.0.0",
+          "attribution": "<a href='https://www.ign.gob.ar/AreaServicios/Argenmap/IntroduccionV2' target='_blank'>Instituto Geográfico Nacional</a> + <a href='https://www.osm.org/copyright' target='_blank'>OpenStreetMap</a>",
+          "host": "https://wms.ign.gob.ar/geoserver/gwc/service/tms/1.0.0/mapabase_topo@EPSG%3A3857@png/{z}/{x}/{-y}.png",
+          "legendImg": "src/styles/images/argenmap-topo.png",
+          "legend": "src/config/styles/images/legends/argenmap-topografico.jpg",
+          "peso": 27,
+          "selected": true,
+          "zoom": {
+            "min": 3,
+            "max": 13
+          }
+        },
+        {
+          "titulo": "Imágenes satelitales Esri",
+          "nombre": "esri_imagery",
+          "servicio": "tms",
+          "version": "1.0.0",
+          "attribution": "Imágenes satelitales © Esri",
+          "host": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+          "legendImg": "src/styles/images/esri.png",
+          "peso": 30,
+          "zoom": {
+            "min": 3,
+            "max": 19
+          }
+        },
+        {
+          "titulo": "Mapa topográfico Esri",
+          "nombre": "esri_imagery_t",
+          "servicio": "tms",
+          "version": "1.0.0",
+          "attribution": "Mapa topográfico © Esri",
+          "host": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}",
+          "legendImg": "src/styles/images/esrit.png",
+          "peso": 40,
+          "zoom": {
+            "min": 3,
+            "max": 8
+          }
+        },
+        {
+          "titulo": "Imágenes satelitales Here",
+          "nombre": "here_imagery",
+          "servicio": "tms",
+          "version": "1.0.0",
+          "attribution": "Imágenes satelitales © here",
+          "host": "https://2.aerial.maps.api.here.com/maptile/2.1/maptile/newest/satellite.day/{z}/{x}/{y}/256/png8?app_id=XiMlA4JwMurUFFYUWYe3&app_code=oTsmqovbl2YudG3E0UlxDA",
+          "legendImg": "src/styles/images/here.png",
+          "peso": 50,
+          "zoom": {
+            "min": 3,
+            "max": 21
+          }
+        }
+      ]
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 10,
+      "nombre": "Conectividad Móvil",
+      "short_abstract": "Antenas 2G, 3G y 4G",
+      "class": "publico",
+      "seccion": "datos-publicos",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/publico/wms"
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 12,
+      "nombre": "Obligaciones",
+      "short_abstract": "Asignación 4G",
+      "class": "base",
+      "seccion": "obligpublico",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/obligaciones/wms"
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 15,
+      "nombre": "Conectividad Rural",
+      "short_abstract": "Antenas 450",
+      "class": "publico",
+      "seccion": "450publica",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/rural/wms"
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 17,
+      "nombre": "Conectividad Fibra Optica",
+      "short_abstract": "Trazas y Nodos FO",
+      "class": "publico",
+      "seccion": "FOpublica",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/fibra_op/wms"
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 20,
+      "nombre": "Conectividad Satelital",
+      "short_abstract": "Asuntos Satelitales",
+      "class": "datosabiertos",
+      "seccion": "asuntos_sat",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/AsuntosSatelitales/wms"
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 21,
+      "nombre": "TDA",
+      "short_abstract": "Televisión Digital Abierta",
+      "class": "datosabiertos",
+      "seccion": "TDA",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/TDA/wms"
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 22,
+      "nombre": "Mi Pueblo Conectado",
+      "short_abstract": "Conectividad Satelital o REFEFO",
+      "class": "datosabiertos",
+      "seccion": "mipueblo",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/mipueblo/wms"
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 23,
+      "nombre": "Kits de Robótica Educativa",
+      "short_abstract": "Sistemas Internet of Things (IoT)",
+      "class": "datosabiertos",
+      "seccion": "sistemasiot",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/sistemasIoT/wms"
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 24,
+      "nombre": "Puntos Digitales",
+      "short_abstract": "Espacios públicos y gratuitos",
+      "class": "datosabiertos",
+      "seccion": "puntosDigitales",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/datosabiertos/wms"
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 30,
+      "nombre": "Información Territorial",
+      "short_abstract": "Capas oficiales postprocesadas para el análisis de telecomunicaciones, residentes en IDECOM",
+      "class": "base",
+      "seccion": "base",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/base/wms"
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 200,
+      "nombre": "Unión Internacional de Telecomunicaciones",
+      "short_abstract": "Servicio WMS externo UIT",
+      "class": "datosabiertos",
+      "seccion": "geo_ext",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/geoservicios_ext/wms"
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 10,
+      "nombre": "Conectividad Móvil",
+      "short_abstract": "Antenas 2G, 3G y 4G",
+      "class": "privado",
+      "seccion": "privado",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/privado1/wms"
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 15,
+      "nombre": "Conectividad Rural",
+      "short_abstract": "Antenas 450",
+      "class": "privado",
+      "seccion": "450privada",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/rural_privada/wms"
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 17,
+      "nombre": "Conectividad Fibra Optica",
+      "short_abstract": "Trazas y Nodos FO",
+      "class": "privado",
+      "seccion": "FOprivada",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/fibra_op_privada/wms"
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 158,
+      "nombre": "Análisis Obligaciones",
+      "short_abstract": "Asignación 4G",
+      "class": "privado",
+      "seccion": "geo_privadoY",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/geoproceso_privadoY/wms"
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 160,
+      "nombre": "Análisis Indice 1",
+      "short_abstract": "Comunicaciones y Población",
+      "class": "privado",
+      "seccion": "geo_privado",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/geoproceso_privado/wms"
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 161,
+      "nombre": "Análisis Indice 1a",
+      "short_abstract": "Comunicaciones y Población",
+      "class": "privado",
+      "seccion": "geo_privado1a",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/geoproceso_privado1a/wms"
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 162,
+      "nombre": "Análisis Indice 2",
+      "short_abstract": "Comunicaciones y Vías de Transporte",
+      "class": "privado",
+      "seccion": "geo_privado2",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/geoproceso_privado2/wms"
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 166,
+      "nombre": "Estudios Conectividad",
+      "short_abstract": "Fibra óptica",
+      "class": "privado",
+      "seccion": "est_FO",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/estudioFO/wms"
+    },
+    {
+      "tab": {
+        "id": "publico",
+        "searcheable": true,
+        "content": "Público"
+      },
+      "type": "wms",
+      "peso": 170,
+      "nombre": "Pruebas",
+      "short_abstract": "Datos de uso interno de la SubSeTIC",
+      "class": "privado",
+      "seccion": "pru_privado",
+      "servicio": "wms",
+      "version": "1.3.0",
+      "host": "https://www.idecom.gob.ar/geoserver/pruebas_privado/wms"
+    }
+  ],
+  "template": "argenmap-leaflet-idecom-tpl",
+  "template_feature_info_exception": [
+    "gid"
+  ]
+}
